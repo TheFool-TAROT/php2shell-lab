@@ -1,5 +1,11 @@
 # PHP2Shell 复现笔记 — CVE-2026-109618 / CVE-2026-109619
 
+![CVE](https://img.shields.io/badge/CVE-2026--109618%20%7C%20CVE--2026--109619-critical)
+![Docker Pulls](https://img.shields.io/docker/pulls/thefooltarot/php2shell-lab)
+![License](https://img.shields.io/github/license/TheFool-TAROT/php2shell-lab)
+![PHP](https://img.shields.io/badge/PHP-8.2--8.5-blue)
+
+
 > 2026-10 的两个 PHP 核心漏洞。这个仓库只做一件事：把"能打到什么程度、卡在哪里"讲清楚，不吹也不藏。
 > 所有测试都在自有靶机上完成，仓库不含任何真实目标清单。
 > [中文](#中文) · [English](#english)
@@ -198,6 +204,8 @@ docker push thefooltarot/php2shell-lab:vuln-8.5.11
 注意：这是**故意脆弱**的镜像，只用于本地或隔离环境，不要暴露到公网。
 
 ### 几条边界（都是实测撞出来的，不是猜的）
+
+完整版见 [`docs/boundaries.md`](docs/boundaries.md)，每一条都有做法、结果和原因。
 
 1. 请求启动阶段**不会触发 autoload**。我们在 preload 里注册 `spl_autoload_register`，session 里放一个未定义类的对象，8.5.11 上什么都没发生。所以类必须真的在 preload 阶段被定义，装个 composer autoload 不算。
 2. 默认 `php` handler 的 key 不能含 `|`，值永远是 PHP 自己序列化的结果，单 handler 下没有对象注入点。
