@@ -1,0 +1,6 @@
+*.log
+proof.txt
+sess_*
+matrix_result.txt
+__pycache__/
+.DS_Store

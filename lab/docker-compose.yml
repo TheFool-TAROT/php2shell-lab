@@ -1,0 +1,18 @@
+services:
+  vuln:
+    build:
+      context: .
+      args:
+        PHP_IMAGE: php:8.5.11-apache
+    image: php2shell-lab:vuln-8.5.11
+    ports: ["127.0.0.1:18080:80"]
+    environment:
+      - TZ=UTC
+
+  fixed:
+    build:
+      context: .
+      args:
+        PHP_IMAGE: php:8.5.12-apache
+    image: php2shell-lab:fixed-8.5.12
+    ports: ["127.0.0.1:18081:80"]
